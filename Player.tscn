@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/player1.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 5.41945, 7.03517 )
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 5.41945
+height = 3.27742
+
+[node name="Player" type="RigidBody2D"]
+z_index = 1
+collision_layer = 9
+collision_mask = 9
+mode = 2
+script = ExtResource( 1 )
+
+[node name="Graphics" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 1, 0 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="Bigger Collider" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0.0484982, 0.0484953 )
+shape = SubResource( 3 )
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 0 )
+shape = SubResource( 2 )
+
+[node name="Cooldowns" type="Node2D" parent="."]
+position = Vector2( -58.7236, -60.677 )
+
+[node name="Grapple" type="Timer" parent="Cooldowns"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Step" type="Timer" parent="Cooldowns"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Die" type="Timer" parent="Cooldowns"]
+wait_time = 2.0
+one_shot = true
+[connection signal="body_shape_entered" from="." to="." method="_on_Player_body_shape_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="Cooldowns/Grapple" to="." method="_on_Grapple_timeout"]
+[connection signal="timeout" from="Cooldowns/Step" to="." method="_on_Step_timeout"]
+[connection signal="timeout" from="Cooldowns/Die" to="." method="_on_Die_timeout"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Crunch.wav-719d22c73407d50b6c14b78ee36514d6.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/Crunch.wav"
+dest_files=[ "res://.import/Crunch.wav-719d22c73407d50b6c14b78ee36514d6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

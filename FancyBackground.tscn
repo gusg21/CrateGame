@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float offset;
+uniform float repeats;
+
+void fragment() {
+	COLOR.r = mod(UV.x * repeats + offset, 1.0);	
+	COLOR.g = mod((UV.x + 1.0/(repeats * 3.0)) * repeats + offset, 1.0);	
+	COLOR.b = mod((UV.x + 2.0/(repeats * 3.0)) * repeats + offset, 1.0);	
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/offset = 0.0
+shader_param/repeats = 19.0
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[node name="Background" type="TextureRect"]
+material = SubResource( 2 )
+margin_left = -878.235
+margin_top = -601.789
+margin_right = 1121.76
+margin_bottom = 798.211
+texture = SubResource( 4 )
+expand = true

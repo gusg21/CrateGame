@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://FancyBackground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://FancyBackground.gd" type="Script" id=2]
+[ext_resource path="res://LogoPanel.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Theme/GameOver.tres" type="Theme" id=4]
+[ext_resource path="res://Assets/Symbols/arrow.png" type="Texture" id=5]
+[ext_resource path="res://ReturnButton.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Fonts/TinyFont.tres" type="DynamicFont" id=7]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+hinting = 0
+font_path = "res://Assets/Fonts/m6x11.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+font_data = SubResource( 1 )
+
+[node name="Credits" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource( 1 )]
+margin_left = -952.795
+margin_top = -715.884
+margin_right = 1047.2
+margin_bottom = 684.116
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.25, 0.25 )
+
+[node name="Shadow Panel" type="Panel" parent="."]
+modulate = Color( 0.658824, 0.576471, 0.576471, 1 )
+margin_left = -87.4243
+margin_top = -52.1557
+margin_right = 92.5757
+margin_bottom = 57.8443
+
+[node name="Main Panel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.708
+margin_top = -54.7314
+margin_right = 90.292
+margin_bottom = 55.2686
+script = ExtResource( 3 )
+shadow = NodePath("../Shadow Panel")
+
+[node name="Logo" type="Label" parent="."]
+margin_left = -83.7145
+margin_top = -50.0571
+margin_right = 10.2855
+margin_bottom = 70.9429
+custom_fonts/font = SubResource( 2 )
+text = "A game by
+Gus Goucher
+"
+
+[node name="Return Button" type="Button" parent="."]
+margin_left = -115.481
+margin_top = -55.1751
+margin_right = -95.4811
+margin_bottom = -35.1751
+theme = ExtResource( 4 )
+icon = ExtResource( 5 )
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -84.0481
+margin_top = 37.2794
+margin_right = -44.0481
+margin_bottom = 51.2794
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0.0941176, 0.0823529, 0.0941176, 1 )
+text = "Blendercult, 2020"
+[connection signal="button_up" from="Return Button" to="Return Button" method="_on_Return_Button_button_up"]

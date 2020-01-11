@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Theme/GameOver.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Symbols/close.png" type="Texture" id=2]
+[ext_resource path="res://CloseButton.gd" type="Script" id=3]
+
+[node name="Close Button" type="Button"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 17.3682
+margin_top = 35.8753
+margin_right = 37.3682
+margin_bottom = 55.8753
+theme = ExtResource( 1 )
+icon = ExtResource( 2 )
+script = ExtResource( 3 )
+[connection signal="button_up" from="." to="." method="_on_Close_Button_button_up"]
