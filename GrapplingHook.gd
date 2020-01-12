@@ -5,26 +5,26 @@ export(NodePath) var caster
 const PARTICLES = preload("res://GrappleParticles.tscn")
 
 var speed = 4
+var pull_speed = 40
 var direction = Vector2.RIGHT
 var contact_offset = Vector2.ZERO
 var other = null
 var is_boosted = false
 
 func _physics_process(delta):
-	if is_queued_for_deletion():
-		return
+	var caster_node = get_node(caster)
 	
 	if other != null:
-		direction = lerp(direction, (get_node(caster).position - position).normalized() * speed * 60, 0.03)
-		other.linear_velocity = direction
+		direction = -(caster_node.global_position - global_position).normalized()
+		other.add_central_force(-(direction * pull_speed))
 		position = other.position - contact_offset
 	else:
 		position += direction * speed
 	
-	if get_node(caster).player_2 && Input.is_action_just_pressed("player2_grapple"):
+	if caster_node.player_2 && Input.is_action_just_pressed("player2_grapple"):
 		die(true)
 	
-	if !get_node(caster).player_2 && Input.is_action_just_pressed("player1_grapple"):
+	if !caster_node.player_2 && Input.is_action_just_pressed("player1_grapple"):
 		die(true)
 	
 	update()
@@ -44,14 +44,13 @@ func _draw():
 	draw_line(to_local(global_position), to_local(get_node(caster).global_position), Color("#8f974a"), 2)
 
 func _on_Area2D_body_entered(body):
-	if body == get_node(caster) and other == null:
+	if other != null:
 		return
 	
-	if other != null: # double collision
-		die(false)
+	if body == get_node(caster) and other == null:
 		return
 		
-	if not "linear_velocity" in body: # wall
+	if not "linear_velocity" in body and other == null: # wall
 		die(true)
 		return
 		
@@ -59,7 +58,6 @@ func _on_Area2D_body_entered(body):
 		body.linear_velocity = direction * 1500
 		die(true)
 	
-	direction = -direction * speed
 	contact_offset = body.position - position
 	other = body
 	get_parent().get_parent().get_node("CrunchSound").play()
