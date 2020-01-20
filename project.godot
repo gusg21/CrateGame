@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="CrateGame"
+config/name="Game Without Crates"
 run/main_scene="res://Menu.tscn"
 boot_splash/image="res://Assets/splash-scale.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
