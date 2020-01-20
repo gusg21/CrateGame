@@ -19,7 +19,7 @@ config/name="CrateGame"
 run/main_scene="res://Menu.tscn"
 boot_splash/image="res://Assets/splash-scale.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://Assets/Objects/crate.png"
 
 [autoload]
 

@@ -80,4 +80,6 @@ func _on_Shift_Left_pressed():
 	showMapId()
 
 func _on_Shift_Right_pressed():
-	pass # Replace with function body.
+	showingMap += 1
+	showingMap %= len(availableMaps)
+	showMapId()
