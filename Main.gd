@@ -1,7 +1,11 @@
 extends Node2D
 
-func loadMap(num):
-	var map_scene = load("res://Map" + num + ".tscn")
+func loadMap(path):
+	var map_scene = load(path)
+	
+	if map_scene == null:
+		return 1
+	
 	print(map_scene)
 	var map = map_scene.instance()
 	print(map)
@@ -40,6 +44,24 @@ func fixWalls():
 	# pos, tile
 	var diff = []
 	
+	var DECORS = [3, 8, 9]
+	
+	# Random decoration
+	for i in range((randi() % 5) + 5):
+		var positions = tilemap.get_used_cells()
+		var center = positions[randi() % positions.size()]
+		
+		if tilemap.get_cellv(center) == HORI:
+			continue
+		
+		var chosen_decor = DECORS[randi() % DECORS.size()]
+		
+		diff.append([center, chosen_decor])
+		for i in range((randi() % 6) + 3):
+			diff.append([center + Vector2(((randi() % 6) - 3), ((randi() % 2) - 1)), chosen_decor])
+		
+	
+	# Autotiling
 	for tile_pos in tilemap.get_used_cells():
 		var tile_id = tilemap.get_cellv(tile_pos)
 		printraw(tile_pos, tile_id, " ")
@@ -59,10 +81,15 @@ func fixWalls():
 func bool_to_bin_str(b):
 	return "1" if b else "0"
 
-func _ready():
-	loadMap("1")
-	
+func chooseMap(name):
+	if loadMap(name) != null:
+		print("oh no")
+		return 1
+		
 	fixWalls()
+
+func _ready():
+	pass
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):

@@ -1,6 +1,7 @@
 extends Node2D
 
 export(NodePath) var caster
+export(NodePath) var camera
 
 const PARTICLES = preload("res://GrappleParticles.tscn")
 
@@ -10,6 +11,7 @@ var direction = Vector2.RIGHT
 var contact_offset = Vector2.ZERO
 var other = null
 var is_boosted = false
+var boost_power = 1500
 
 func _physics_process(delta):
 	var caster_node = get_node(caster)
@@ -55,7 +57,8 @@ func _on_Area2D_body_entered(body):
 		return
 		
 	if is_boosted:
-		body.linear_velocity = direction * 1500
+		body.linear_velocity = direction * boost_power
+		get_node("/root/Main/Camera2D").shake()
 		die(true)
 	
 	contact_offset = body.position - position

@@ -1,6 +1,12 @@
 extends Camera2D
 
 var t_zoom
+const SHAKE_TIME = 0.2
+var shake_time_left = 0
+var shake_amt = 5
+
+func shake():
+	shake_time_left = SHAKE_TIME
 
 func _physics_process(delta):
 	var map = get_parent().get_node("Map")
@@ -25,3 +31,12 @@ func _physics_process(delta):
 	zoom.y = zoom.x
 	
 	position = lerp(target, position, 0.1)
+	
+	shake_time_left -= delta
+	if shake_time_left > 0:
+		offset = Vector2(
+			rand_range(-1.0, 1.0) * (shake_time_left / SHAKE_TIME) * shake_amt,
+       		rand_range(-1.0, 1.0) * (shake_time_left / SHAKE_TIME) * shake_amt
+		)
+	else:
+		offset = lerp(offset, Vector2.ZERO, 0.1)

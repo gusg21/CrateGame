@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/Theme/GameOver.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Shaders/darken.shader" type="Shader" id=2]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+
+[sub_resource type="GradientTexture" id=2]
+
+[node name="Popups" type="Node2D"]
+
+[node name="MapLoadError" type="AcceptDialog" parent="."]
+visible = true
+theme = ExtResource( 1 )
+window_title = "Error"
+dialog_text = "Failed to load map!"
+
+[node name="TextureRect" type="TextureRect" parent="MapLoadError"]
+material = SubResource( 1 )
+margin_left = -1376.87
+margin_top = -804.784
+margin_right = 1566.13
+margin_bottom = 1016.22
+texture = SubResource( 2 )
